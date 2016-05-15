@@ -11,3 +11,5 @@ More importantly the parts of the project:
     5. Data - data
  
 This is the basic outline of the TODO's each part will probably be contained with in its own module. 
+
+http://www.brewerydb.com/developers/docs-endpoint/beer_index

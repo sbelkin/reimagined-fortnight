@@ -14,12 +14,71 @@
     <artifactId>backend</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <spray.json.verson>1.3.2</spray.json.verson>
+        <spray.verson>1.3.3</spray.verson>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.17</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-can_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-json_2.11</artifactId>
+            <version>${spray.json.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-client_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-routing_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-http_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-routing-shapeless2_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-util_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-caching_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-io_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-servlet_2.11</artifactId>
+            <version>${spray.verson}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.11</artifactId>
+            <version>2.4.4</version>
         </dependency>
     </dependencies>
     
