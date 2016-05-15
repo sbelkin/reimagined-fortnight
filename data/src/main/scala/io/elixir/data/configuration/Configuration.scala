@@ -1,4 +1,4 @@
-package io.elixir.backend.configuration
+package io.elixir.data.configuration
 
 import java.io.{File, FileInputStream}
 
