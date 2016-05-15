@@ -27,6 +27,9 @@ class DemoService extends Actor with ActorLogging {
     case HttpRequest(GET, Uri.Path("/ping"), _, _, _) =>
       sender ! HttpResponse(entity = "PONG!")
 
+    case HttpRequest(GET, Uri.Path("/ping"), _, _, _) =>
+      sender ! HttpResponse(entity = "PONG!")
+
     case HttpRequest(GET, Uri.Path("/stream"), _, _, _) =>
       val peer = sender // since the Props creator is executed asyncly we need to save the sender ref
       context actorOf Props(new Streamer(peer, 25))
