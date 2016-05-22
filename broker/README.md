@@ -48,7 +48,7 @@ On Windows:
 cd kafka_2.11-0.9.0.1\bin\windows
 ```
 ``` 
-kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 10 --topic test
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 10 --topic test_topic
 ```
 
 ### package this example
@@ -61,5 +61,21 @@ mvn clean package
 Run the consumer. This will need to be run as we are using kafka to handle the message broker layer. (TBD)
 
 ``` sh
-java -cp broker-1.0-SNAPSHOT.jar io.scala.elixir.CONSUMER localhost:2181 group1 test_topic 10 0
+java -cp broker-1.0-SNAPSHOT.jar io.scala.elixir.MessageConsumer localhost:2181 group1 test_topic 10 0
+```
+
+
+### Test consumer
+Using console for now.
+
+On Linux: 
+
+```
+kafka-console-producer.sh --broker-list localhost:9092 --topic test_topic
+```
+
+On Windows:
+
+```
+kafka-console-producer.bat --broker-list localhost:9092 --topic test_topic
 ```
