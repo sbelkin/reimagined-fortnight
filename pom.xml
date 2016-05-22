@@ -10,11 +10,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>backend</module>
+        <module>broker</module>
         <module>data</module>
         <module>entities</module>
         <module>frontend</module>
         <module>learning</module>
+        <module>service</module>
     </modules>
 
 

@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>io.elixir</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
