@@ -3,70 +3,40 @@ package io.elixir.broker
 /**
   * Created by sbelkin on 5/22/2016.
   */
+import javax.jms._
 
-import java.util.Properties
-import java.util.concurrent._
-import kafka.consumer.Consumer
-import kafka.consumer.ConsumerConfig
-import kafka.utils.Logging
-import kafka.consumer.KafkaStream
+import org.apache.activemq.ActiveMQConnectionFactory
 
-class MessageConsumer(val zookeeper: String,
-                           val groupId: String,
-                           val topic: String,
-                           val delay: Long) extends Logging {
+object MessageConsumer {
+  val activeMqUrl: String = "tcp://localhost:61616"
+  val queueName: String = "TEST.FOO"
 
-  val config = createConsumerConfig(zookeeper, groupId)
-  val consumer = Consumer.create(config)
-  var executor: ExecutorService = null
+  def main(args: Array[String]) {
+    val connectionFactory = new ActiveMQConnectionFactory(activeMqUrl)
+    val connection = connectionFactory.createConnection
+    connection.start
 
-  def shutdown() = {
-    if (consumer != null)
-      consumer.shutdown();
-    if (executor != null)
-      executor.shutdown();
-  }
+    val session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE)
+    val destination = session.createQueue(queueName)
+    val consumer: MessageConsumer = session.createConsumer(destination)
 
-  def createConsumerConfig(zookeeper: String, groupId: String): ConsumerConfig = {
-    val props = new Properties()
-    props.put("zookeeper.connect", zookeeper);
-    props.put("group.id", groupId);
-    props.put("auto.offset.reset", "largest");
-    props.put("zookeeper.session.timeout.ms", "400");
-    props.put("zookeeper.sync.time.ms", "200");
-    props.put("auto.commit.interval.ms", "1000");
-    val config = new ConsumerConfig(props)
-    config
-  }
-
-  def run(numThreads: Int) = {
-    val topicCountMap = Map(topic -> numThreads)
-    val consumerMap = consumer.createMessageStreams(topicCountMap);
-    val streams = consumerMap.get(topic).get;
-
-    executor = Executors.newFixedThreadPool(numThreads);
-    var threadNumber = 0;
-    for (stream <- streams) {
-      executor.submit(new MessageConsumerTest(stream, threadNumber, delay))
-      threadNumber += 1
-    }
-  }
-}
-
-object MessageConsumer extends App {
-  val example = new MessageConsumer(args(0), args(1), args(2),args(4).toLong)
-  example.run(args(3).toInt)
-}
-
-class MessageConsumerTest(val stream: KafkaStream[Array[Byte], Array[Byte]], val threadNumber: Int, val delay: Long) extends Logging with Runnable {
-  def run {
-    val it = stream.iterator()
-
-    while (it.hasNext()) {
-      val msg = new String(it.next().message());
-      System.out.println(System.currentTimeMillis() + ",Thread " + threadNumber + ": " + msg);
+    val listener: MessageListener = new MessageListener {
+      override def onMessage(message: Message): Unit = {
+        try {
+          if (message.isInstanceOf[TextMessage]) {
+            val textMessage: TextMessage = message.asInstanceOf[TextMessage]
+            println(textMessage.getText + " received @ " + System.currentTimeMillis())
+            message.acknowledge
+          }
+        } catch {
+          case je: JMSException => {
+            println(je.getMessage)
+          }
+        }
+      }
     }
 
-    System.out.println("Shutting down Thread: " + threadNumber);
+    consumer.setMessageListener(listener)
   }
 }
+
