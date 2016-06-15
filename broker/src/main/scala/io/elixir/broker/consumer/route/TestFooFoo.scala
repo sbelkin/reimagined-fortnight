@@ -10,6 +10,8 @@ class TestFooFoo extends Actor with Consumer {
   def endpointUri = QueueNames.fooFoo
 
   def receive = {
-    case msg: CamelMessage => println("received %s" format msg.bodyAs[String])
+    case msg: CamelMessage => {
+      var value = msg.bodyAs[String]
+    }
   }
 }
