@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>broker</module>
         <module>data</module>
         <module>entities</module>
         <module>frontend</module>

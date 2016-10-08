@@ -1,41 +1,34 @@
 package io.elixir.entities
 
-
-import java.sql.DriverManager
-import java.sql.Connection
+import javax.persistence.{EntityManager, EntityManagerFactory, Persistence}
 
 /**
-  * Created by sbelkin on 4/10/2016.
+  * Created by sbelkin on 10/08/2016.
   */
-object Connection {
+import java.sql.{Connection,DriverManager}
 
-  def main(args: Array[String]) {
-    // connect to the database named "mysql" on the localhost
+object Connection {
+  def main(args: Array[String]): Unit = {
+
+    val url = "jdbc:mysql://localhost:3306/jpadb"
     val driver = "com.mysql.jdbc.Driver"
-    val url = "jdbc:mysql://localhost/mysql"
     val username = "root"
     val password = "root"
-
-    // there's probably a better way to do this
-    var connection:Connection = null
-
+    var connection: Connection = null
     try {
-      // make the connection
       Class.forName(driver)
       connection = DriverManager.getConnection(url, username, password)
-
-      // create the statement, and run the select query
-      val statement = connection.createStatement()
-      val resultSet = statement.executeQuery("SELECT host, user FROM user")
-      while ( resultSet.next() ) {
-        val host = resultSet.getString("host")
-        val user = resultSet.getString("user")
-        println("host, user = " + host + ", " + user)
+      val statement = connection.createStatement
+      val rs = statement.executeQuery("SELECT * FROM beer ")
+      while (rs.next) {
+        val id = rs.getString("id")
+        val name = rs.getString("name")
+        val extra = rs.getString("extra")
+        println("id = %s, name = %s, extra = %s".format(id,name,extra))
       }
     } catch {
-      case e => e.printStackTrace
+      case e: Exception => e.printStackTrace
     }
-    connection.close()
+    connection.close
   }
-
 }

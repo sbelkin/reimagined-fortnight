@@ -28,6 +28,12 @@ class BeerService extends Actor with ActorLogging {
     case HttpRequest(GET, Uri.Path("/beer"), _, _, _) =>
       sender ! HttpResponse(entity = "Beer")
 
+//    case HttpRequest(POST, Uri.Path("/beer"), _, entity, _) =>
+//    case HttpRequest(POST, Uri.Path("/beer"), entity = HttpEntity(ContentTypes.`text/plain`, )) =>
+//      println("here")
+//      println(entity)
+//      sender ! HttpResponse(entity)
+
   }
 
   ////////////// helpers //////////////
@@ -46,32 +52,4 @@ class BeerService extends Actor with ActorLogging {
       </html>.toString()
     )
   )
-
-  class Streamer(client: ActorRef, count: Int) extends Actor with ActorLogging {
-    log.debug("Starting streaming response ...")
-
-    // we use the successful sending of a chunk as trigger for scheduling the next chunk
-    client ! ChunkedResponseStart(HttpResponse(entity = " " * 2048)).withAck(Ok(count))
-
-    def receive = {
-      case Ok(0) =>
-        log.info("Finalizing response stream ...")
-        client ! MessageChunk("\nStopped...")
-        client ! ChunkedMessageEnd
-        context.stop(self)
-
-      case Ok(remaining) =>
-        log.info("Sending response chunk ...")
-        context.system.scheduler.scheduleOnce(100 millis span) {
-          client ! MessageChunk(DateTime.now.toIsoDateTimeString + ", ").withAck(Ok(remaining - 1))
-        }
-
-      case x: Http.ConnectionClosed =>
-        log.info("Canceling response stream due to {} ...", x)
-        context.stop(self)
-    }
-
-    // simple case class whose instances we use as send confirmation message for streaming chunks
-    case class Ok(remaining: Int)
-  }
 }
