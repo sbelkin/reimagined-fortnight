@@ -1,0 +1,9 @@
+database:
+  driverClass: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/reimagined_fortnight
+  user: test
+  password : test
+
+  properties:
+    hibernate.current_session_context_class: thread
+#    hibernate.hbm2ddl.auto: create
