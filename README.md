@@ -1,4 +1,7 @@
-# reimagined-fortnight
+# reimagined-fortnight 
+
+![build](https://travis-ci.org/sbelkin/reimagined-fortnight.svg?branch=master)
+
 Had an idea to use supervised machine learning to determine based on various features if i would like a particular drink. 
 
 For now I would probably keep the beer,wine and hard liquor separate and then go through the process of seeing how it would work if they are part of a single model.
