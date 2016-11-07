@@ -1,23 +1,24 @@
-package io.elixir.backend.model;
+package io.elixir.entities.model;
 
 import com.yahoo.elide.annotation.Include;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by sbelkin on 11/6/2016.
  */
+
 @Entity
 @Include(rootLevel = true)
-public class Beer {
+public class Company {
 
     private long id;
-    private String company;
     private String name;
+    private String location;
     private String properties;
+    private Collection<Beer> beers = new ArrayList<Beer>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +30,6 @@ public class Beer {
         this.id = id;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
     public String getName() {
         return name;
     }
@@ -45,11 +38,28 @@ public class Beer {
         this.name = name;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getProperties() {
         return properties;
     }
 
     public void setProperties(String properties) {
         this.properties = properties;
+    }
+
+    @OneToMany(mappedBy = "company")
+    public Collection<Beer> getBeers() {
+        return beers;
+    }
+
+    public void setBeers(Collection<Beer> beers) {
+        this.beers = beers;
     }
 }

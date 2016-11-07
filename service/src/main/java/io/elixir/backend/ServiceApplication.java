@@ -7,10 +7,9 @@ import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.elixir.backend.configuration.ServiceConfiguration;
-import io.elixir.backend.model.Beer;
-import io.elixir.backend.model.User;
-
-import java.io.File;
+import io.elixir.entities.model.Beer;
+import io.elixir.entities.model.Company;
+import io.elixir.entities.model.User;
 
 /**
  * Created by sbelkin on 11/6/2016.
@@ -24,7 +23,9 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
     private final ElideBundle<ServiceConfiguration> bundle;
 
     public ServiceApplication(){
-        bundle = new ElideBundle<ServiceConfiguration>(Beer.class,
+        bundle = new ElideBundle<ServiceConfiguration>(
+                Beer.class,
+                Company.class,
                 User.class) {
             public PooledDataSourceFactory getDataSourceFactory(ServiceConfiguration serviceConfiguration) {
                 return serviceConfiguration.getDataSourceFactory();

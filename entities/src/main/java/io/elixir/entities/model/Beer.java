@@ -1,21 +1,20 @@
-package io.elixir.backend.model;
+package io.elixir.entities.model;
 
 import com.yahoo.elide.annotation.Include;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by sbelkin on 11/6/2016.
  */
 @Entity
 @Include(rootLevel = true)
-public class User {
+public class Beer {
+
     private long id;
+    private Company company;
     private String name;
-    private String email;
+    private String properties;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +26,15 @@ public class User {
         this.id = id;
     }
 
+    @OneToOne
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     public String getName() {
         return name;
     }
@@ -35,11 +43,11 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getProperties() {
+        return properties;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProperties(String properties) {
+        this.properties = properties;
     }
 }

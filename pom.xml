@@ -10,10 +10,37 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>entities</module>
         <module>frontend</module>
         <module>learning</module>
         <module>service</module>
     </modules>
 
+    <dependencies>
+        <!-- Dropwizard -->
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-db</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
+        <!--Elide-->
+        <dependency>
+            <groupId>com.yahoo.elide</groupId>
+            <artifactId>dropwizard-elide</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+        <!-- Mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.38</version>
+        </dependency>
+    </dependencies>
 </project>
