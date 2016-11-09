@@ -1,10 +1,10 @@
 package io.elixir.entities.model;
 
-import com.yahoo.elide.annotation.*;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.*;
+
+import com.yahoo.elide.annotation.Include;
 
 /**
  * Created by sbelkin on 11/6/2016.

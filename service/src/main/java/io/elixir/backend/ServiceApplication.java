@@ -1,25 +1,17 @@
 package io.elixir.backend;
 
-import com.yahoo.elide.contrib.dropwizard.elide.ElideBundle;
-import com.yahoo.elide.core.EntityDictionary;
-import com.yahoo.elide.resources.JsonApiEndpoint;
 import io.dropwizard.Application;
-import io.dropwizard.auth.AuthDynamicFeature;
-import io.dropwizard.auth.AuthValueFactoryProvider;
-import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.elixir.backend.auth.ServiceAuthorizer;
 import io.elixir.backend.configuration.ServiceConfiguration;
-import io.elixir.backend.core.User;
+import io.elixir.entities.model.Account;
 import io.elixir.entities.model.Beer;
 import io.elixir.entities.model.Company;
-import io.elixir.entities.model.Account;
 import io.elixir.entities.model.History;
-import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
-import java.util.HashMap;
+import com.yahoo.elide.contrib.dropwizard.elide.ElideBundle;
+import com.yahoo.elide.resources.JsonApiEndpoint;
 
 /**
  * Created by sbelkin on 11/6/2016.

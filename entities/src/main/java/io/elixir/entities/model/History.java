@@ -3,9 +3,10 @@ package io.elixir.entities.model;
 /**
  * Created by sbelkin on 11/8/2016.
  */
-import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
+
+import com.yahoo.elide.annotation.Include;
 
 @Entity
 //@ReadPermission(expression = "user is a superuser OR user is this user")
