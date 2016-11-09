@@ -2,4 +2,5 @@
 
 service.iml
 
+src/main/resources/local.configuration.yml
 target/

@@ -1,6 +1,6 @@
 package io.elixir.entities.model;
 
-import com.yahoo.elide.annotation.Include;
+import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 
@@ -8,6 +8,11 @@ import javax.persistence.*;
  * Created by sbelkin on 11/6/2016.
  */
 @Entity
+//@ReadPermission(expression = "Prefab.Roll.All")
+//@UpdatePermission(expression = "user is a superuser")
+//@CreatePermission(expression = "user is a superuser")
+//@DeletePermission(expression = "user is a superuser")
+//@SharePermission(expression = "Prefab.Role.All")
 @Include(rootLevel = true)
 public class Beer {
 
@@ -50,4 +55,7 @@ public class Beer {
     public void setProperties(String properties) {
         this.properties = properties;
     }
+
+//    @UpdatePermission(expression = "user is a superuser now")
+//    boolean suppressed;
 }

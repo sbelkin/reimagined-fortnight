@@ -1,15 +1,25 @@
 package io.elixir.backend;
 
 import com.yahoo.elide.contrib.dropwizard.elide.ElideBundle;
+import com.yahoo.elide.core.EntityDictionary;
 import com.yahoo.elide.resources.JsonApiEndpoint;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.elixir.backend.auth.ServiceAuthorizer;
 import io.elixir.backend.configuration.ServiceConfiguration;
+import io.elixir.backend.core.User;
 import io.elixir.entities.model.Beer;
 import io.elixir.entities.model.Company;
-import io.elixir.entities.model.User;
+import io.elixir.entities.model.Account;
+import io.elixir.entities.model.History;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+
+import java.util.HashMap;
 
 /**
  * Created by sbelkin on 11/6/2016.
@@ -24,14 +34,22 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
 
     public ServiceApplication(){
         bundle = new ElideBundle<ServiceConfiguration>(
+                Account.class,
                 Beer.class,
                 Company.class,
-                User.class) {
+                History.class) {
             public PooledDataSourceFactory getDataSourceFactory(ServiceConfiguration serviceConfiguration) {
                 return serviceConfiguration.getDataSourceFactory();
             }
         };
+
     }
+
+    @Override
+    public String getName() {
+        return "reimagined-fortnight";
+    }
+
 
     @Override
     public void initialize(Bootstrap<ServiceConfiguration> bootstrap) {
@@ -40,6 +58,24 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
 
     public void run(ServiceConfiguration serviceConfiguration, Environment environment) throws Exception {
         environment.jersey().register(JsonApiEndpoint.class);
+//        environment.jersey().register(new AuthDynamicFeature(
+//                new OAuthCredentialAuthFilter.Builder<User>()
+//                        .setAuthenticator(new ExampleOAuthAuthenticator())
+//                        .setAuthorizer(new ServiceAuthorizer())
+//                        .setPrefix("Bearer")
+//                        .buildAuthFilter()));
+//        environment.jersey().register(RolesAllowedDynamicFeature.class);
+//        //If you want to use @Auth to inject a custom Principal type into your resource
+//        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+//        HashMap checks = new HashMap();
+//        checks.put("post is visible now", IsPublished.Inline.class);
+//        checks.put("post is visible", IsPublished.AtCommit.class);
+//        checks.put("user owns this post now", IsOwner.Inline.class);
+//        checks.put("user owns this post", IsOwner.AtCommit.class);
+//        checks.put("user is a superuser", IsSuperuser.Inline.class);
+////...
+//        EntityDictionary dictionary = new EntityDictionary(checks);
+
     }
 
 }

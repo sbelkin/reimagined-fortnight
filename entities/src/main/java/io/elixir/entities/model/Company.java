@@ -1,6 +1,6 @@
 package io.elixir.entities.model;
 
-import com.yahoo.elide.annotation.Include;
+import com.yahoo.elide.annotation.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +11,11 @@ import java.util.Collection;
  */
 
 @Entity
+//@ReadPermission(expression = "Prefab.Roll.All")
+//@UpdatePermission(expression = "user is a superuser")
+//@CreatePermission(expression = "user is a superuser")
+//@DeletePermission(expression = "user is a superuser")
+//@SharePermission(expression = "Prefab.Role.All")
 @Include(rootLevel = true)
 public class Company {
 
@@ -62,4 +67,7 @@ public class Company {
     public void setBeers(Collection<Beer> beers) {
         this.beers = beers;
     }
+
+//    @UpdatePermission(expression = "user is a superuser now")
+//    boolean suppressed;
 }

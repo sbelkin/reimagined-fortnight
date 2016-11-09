@@ -1,3 +1,5 @@
+googleKey: KEY
+
 database:
   driverClass: com.mysql.jdbc.Driver
   url: jdbc:mysql://localhost:3306/reimagined_fortnight
@@ -6,4 +8,4 @@ database:
 
   properties:
     hibernate.current_session_context_class: thread
-#    hibernate.hbm2ddl.auto: create
+    hibernate.hbm2ddl.auto: create
