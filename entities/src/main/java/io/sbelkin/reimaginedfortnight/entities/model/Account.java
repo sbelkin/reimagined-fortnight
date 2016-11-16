@@ -19,7 +19,7 @@ public class Account {
     private long id;
     private String name;
     private String email;
-    private Collection<History> histories = new ArrayList<>();
+    private Collection<History> histories = new ArrayList<History>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
