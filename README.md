@@ -17,3 +17,26 @@ More importantly the parts of the project:
 This is the basic outline of the TODO's each part will probably be contained with in its own module. 
 
 http://www.brewerydb.com/developers/docs-endpoint/beer_index
+
+
+Pulling in google Vision Api: 
+https://cloud.google.com/vision/reference/rest/v1/images/annotate#type -> do text detection on menus to extract beer lists.
+
+POST https://vision.googleapis.com/v1/images:annotate?key={YOUR_API_KEY}
+{
+ "requests": [
+  {
+   "features": [
+    {
+     "type": "TEXT_DETECTION"
+    }
+   ],
+   "image": {
+    "source": {
+     "gcsImageUri": "gs://bucket/menu.image"
+    }
+   }
+  }
+ ]
+}
+

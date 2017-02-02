@@ -5,6 +5,7 @@ import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.sbelkin.reimaginedfortnight.backend.configuration.ServiceConfiguration;
+import io.sbelkin.reimaginedfortnight.backend.services.ImageService;
 import io.sbelkin.reimaginedfortnight.entities.model.Account;
 import io.sbelkin.reimaginedfortnight.entities.model.Beer;
 import io.sbelkin.reimaginedfortnight.entities.model.Company;
@@ -50,6 +51,7 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
 
     public void run(ServiceConfiguration serviceConfiguration, Environment environment) throws Exception {
         environment.jersey().register(JsonApiEndpoint.class);
+        environment.jersey().register(ImageService.class);
 //        environment.jersey().register(new AuthDynamicFeature(
 //                new OAuthCredentialAuthFilter.Builder<User>()
 //                        .setAuthenticator(new ExampleOAuthAuthenticator())
